@@ -4,20 +4,21 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
 
-// LibraryItem class serves as the parent class for Book and User classes
-// It encapsulates the common properties of library items
+
+// LibraryItem class serves as the parent class for Book and User classes (Encapsulation)
+// it encapsulates the common properties of library items
 class LibraryItem {
     protected String name;
     protected String author;
     protected String publisher;
     protected String dateAdded;
 
-    // Constructor to initialize the LibraryItem object
+    // constructor to initialize the LibraryItem object
     public LibraryItem(String name) {
         this.name = name;
     }
 
-    // Getter methods to access the protected properties
+    // getter methods to access the protected properties
     public String getName() {
         return name;
     }
@@ -35,12 +36,12 @@ class LibraryItem {
     }
 }
 
+
 // Book class extends the LibraryItem class (Inhereitance)
-// It represents a book in the library management system
 class Book extends LibraryItem {
     private boolean available;
 
-    // Constructor to initialize the Book object
+    // constructor to initialize the Book object
     public Book(String name, String author, String publisher, String dateAdded, boolean available) {
         super(name);
         this.author = author;
@@ -49,7 +50,7 @@ class Book extends LibraryItem {
         this.available = available;
     }
 
-    // Getter and setter methods for the available property (Encapsulation)
+    // getter and setter methods for the available property (Encapsulation)
     public boolean isAvailable() {
         return available;
     }
@@ -68,13 +69,14 @@ class Book extends LibraryItem {
     }
 }
 
+
 // User class extends the LibraryItem class (Inhereitance)
 class User extends LibraryItem {
     private String userId;
     private String emailId;
     private ArrayList<Book> borrowedBooks;
 
-    // Constructor to initialize the User object
+    // constructor to initialize the User object
     public User(String name, String emailId) {
         super(name);
         this.userId = generateUserId();
@@ -82,29 +84,29 @@ class User extends LibraryItem {
         this.borrowedBooks = new ArrayList<>();
     }
 
-    // Generate a unique user ID
+    // generate unique user ID
     private String generateUserId() {
         // Reference: https://stackoverflow.com/questions/3804591/efficient-method-to-generate-uuid-string-in-java-uuid-randomuuid-tostring-w
         // Reference: https://stackoverflow.com/questions/4267475/how-to-generate-shorter-uuids-of-8-characters-in-length-instead-of-32-characters
         return UUID.randomUUID().toString().substring(0, 8); 
     }
 
-    // Getter method for the userId property (Encapsulation)
+    // getter method for the userId property (Encapsulation)
     public String getUserId() {
         return userId;
     }
 
-    // Getter method for the emailId property (Encapsulation)
+    // getter method for the emailId property (Encapsulation)
     public String getEmailId() {
         return emailId;
     }
 
-    // Getter method for the borrowedBooks list (Encapsulation)
+    // getter method for the borrowedBooks list (Encapsulation)
     public ArrayList<Book> getBorrowedBooks() {
         return borrowedBooks;
     }
 
-    // Methods to add and remove borrowed books from the user's list
+    // methods to add and remove borrowed books from the user's list
     public void addBorrowedBook(Book book) {
         borrowedBooks.add(book);
     }
@@ -125,6 +127,7 @@ class User extends LibraryItem {
     }
 }
 
+
 // BorrowingRecord class
 class BorrowingRecord {
     private Book book;
@@ -132,7 +135,7 @@ class BorrowingRecord {
     private String borrowedDate;
     private String returnDate;
 
-    // Constructor to initialize the BorrowingRecord object
+    // constructor to initialize the BorrowingRecord object
     public BorrowingRecord(Book book, User user, String borrowedDate, String returnDate) {
         this.book = book;
         this.user = user;
@@ -140,7 +143,7 @@ class BorrowingRecord {
         this.returnDate = returnDate;
     }
 
-    // Getter methods to access the properties of the BorrowingRecord (Encapsulation)
+    // getter methods to access the properties of the BorrowingRecord (Encapsulation)
     public Book getBook() {
         return book;
     }
@@ -157,6 +160,7 @@ class BorrowingRecord {
         return returnDate;
     }
 }
+
 
 // main class
 class LibraryManagementSystem {
@@ -352,8 +356,8 @@ class LibraryManagementSystem {
         System.out.print("Enter email ID: ");
         String emailId = sc.nextLine();
 
-        User newUser = new User(name, emailId); // Create a new User object
-        users.add(newUser); // Add the new User object to the users list
+        User newUser = new User(name, emailId); // create a new User object
+        users.add(newUser); // add the new User object to the users list
         System.out.println("User added successfully. User ID: " + newUser.getUserId());
     }
 
@@ -390,16 +394,16 @@ class LibraryManagementSystem {
         System.out.print("Enter book name: ");
         String bookName = sc.nextLine();
 
-        // Find book based on user's input
+        // find book based on user's input
         Book book = findBook(bookName);
         if (book == null) {
             System.out.println("Book not found.");
             return;
         }
 
-        // Check if the book is available for borrowing
+        // check if the book is available for borrowing
         if (!book.isAvailable()) {
-            // If book not available
+            // if not available
             System.out.println("The book is currently unavailable. Please check back later.");
             return;
         }
@@ -407,7 +411,7 @@ class LibraryManagementSystem {
         System.out.print("Enter email ID: ");
         String emailId = sc.nextLine();
 
-        // Find user based on the email ID
+        // find user based on the email ID
         User user = findUser(emailId);
         if (user == null) {
             // If user not found
@@ -415,25 +419,23 @@ class LibraryManagementSystem {
             return;
         }
 
-        // Calculate the borrowed date and return date
+        // calculate return date based on borrow date
         LocalDate today = LocalDate.now(); // Reference: https://www.w3schools.com/java/java_date.asp
         LocalDate returnDate = today.plusDays(14); // Reference: https://www.javatpoint.com/java-date-add-days
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
         String borrowedDate = today.format(formatter);
         String returnDateStr = returnDate.format(formatter);
 
-        // Display the return date and late return fine
+        // display the return date and late return fine
         System.out.println("Return date: " + returnDateStr);
         System.out.println("Late return fine: $5 per day");
 
-        // Add borrowed book in the user's list, set availability to false,
-        // create new record, and add it to the borrowingRecords list
+        // add borrowed book in the user's list, ,
         user.addBorrowedBook(book);
-        book.setAvailable(false);
+        book.setAvailable(false); // set availability to false
         BorrowingRecord record = new BorrowingRecord(book, user, borrowedDate, returnDateStr);
-        borrowingRecords.add(record);
+        borrowingRecords.add(record); // create new record, and add it to the borrowingRecords list
 
-        // Print a success message
         System.out.println("Book borrowed successfully.");
     }
 
