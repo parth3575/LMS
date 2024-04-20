@@ -189,11 +189,11 @@ class LibraryManagementSystem {
         System.out.println("Sample books have been added.");
 
         // for users
-        User user1 = new User("Mark Zuckerberg", "mark.zuckerberg@example.com");
-        User user2 = new User("Bill Gates", "bill.gates@example.com");
-        User user3 = new User("Jeff Bezos", "jeff.bezos@example.com");
-        User user4 = new User("Elon Musk", "elon.musk@example.com");
-        User user5 = new User("Steve Jobs", "steve.jobs@example.com");
+        User user1 = new User("Mark Zuckerberg", "mark@meta.com");
+        User user2 = new User("Bill Gates", "bill@microsoft.com");
+        User user3 = new User("Jeff Bezos", "jeff@amazon.com");
+        User user4 = new User("Elon Musk", "elon@tesla.com");
+        User user5 = new User("Steve Jobs", "steve@apple.com");
 
         users.add(user1);
         users.add(user2);
@@ -312,6 +312,7 @@ class LibraryManagementSystem {
     private static void displayAllBooks() {
         System.out.println("\nAll available books:");
         for (int i = 0; i < books.size(); i++) {
+            // if (! books.get(i).isAvailable()) { continue; } // If the book is not available, skip it and move to the next book
             books.get(i).displayBookInfo();
             System.out.println();
         }
