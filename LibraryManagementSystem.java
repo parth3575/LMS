@@ -1,3 +1,4 @@
+// Libraries
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -405,7 +406,7 @@ class LibraryManagementSystem {
         // check if the book is available for borrowing
         if (!book.isAvailable()) {
             // if not available
-            System.out.println("The book is currently unavailable. Please check back later.");
+            System.out.println("Sorry!, The book is currently unavailable. Please check back after a week.");
             return;
         }
 
@@ -431,7 +432,7 @@ class LibraryManagementSystem {
         System.out.println("Return date: " + returnDateStr);
         System.out.println("Late return fine: $5 per day");
 
-        // add borrowed book in the user's list, ,
+        // add borrowed book in the user's list,
         user.addBorrowedBook(book);
         book.setAvailable(false); // set availability to false
         BorrowingRecord record = new BorrowingRecord(book, user, borrowedDate, returnDateStr);
@@ -442,10 +443,10 @@ class LibraryManagementSystem {
 
     // method to find a book based on the book name
     private static Book findBook(String bookName) {
-        for (Book book : books) {
-            if (book.getName().equalsIgnoreCase(bookName) && book.isAvailable()) {
+        for (int i = 0; i < books.size(); i++) {
+            if (books.get(i).getName().equalsIgnoreCase(bookName) && books.get(i).isAvailable()) {
                 System.err.println(bookName + " is available for borrowing.");
-                return book;
+                return books.get(i);
             }
         }
         return null;
@@ -453,9 +454,9 @@ class LibraryManagementSystem {
 
     // method to find a user based on the email ID
     private static User findUser(String emailId) {
-        for (User user : users) {
-            if (user.getEmailId().equalsIgnoreCase(emailId)) {
-                return user;
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getEmailId().equalsIgnoreCase(emailId)) {
+                return users.get(i);
             }
         }
         return null;
@@ -495,9 +496,9 @@ class LibraryManagementSystem {
             // check if book name matches the book name provided by the user (case-insensitive)
             if (books.get(i).getName().equalsIgnoreCase(bookName)) {
                 if (books.get(i).isAvailable()) {
-                    System.out.println("The book is available for borrowing.");
+                    System.out.println("The book is available for borrowing at - Row 1 - Rack 3.");
                 } else {
-                    System.out.println("The book is currently unavailable.");
+                    System.out.println("Sorry!, The book is currently unavailable. Please check back after a week.");
                 }
                 found = true;
                 break;
