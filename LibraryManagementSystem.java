@@ -281,6 +281,15 @@ class LibraryManagementSystem {
     public static void addBook() {
         System.out.print("Enter book name: ");
         String name = sc.nextLine();
+
+        // if book already exists then return to the menu
+        for (int i = 0; i < books.size(); i++) {
+            if (books.get(i).getName().equalsIgnoreCase(name)) {
+                System.out.println("Book already exists.");
+                return;
+            }
+        }
+
         System.out.print("Enter author name: ");
         String author = sc.nextLine();
         System.out.print("Enter publisher name: ");
